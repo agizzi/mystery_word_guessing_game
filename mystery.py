@@ -12,15 +12,31 @@ print(answer)
 # print(type(answer_letters))
 print("This word has", len(answer), "letters!")
 
-board = ['_ ' * len(answer)]
-print(board[0])
+board = ('_ ' * len(answer))
+board_squares = list(board)
+print(board)
+letter_guesses = []
+# print(type(board_squares))
 
 
 def compare_letter(guess):
+    frequency = answer_letters.count(guess)
     wrong_guesses = 0
+    index = answer_letters.index(guess)
+    # print(index)
     if guess in answer_letters:
-        print("Nice! You found a letter.")
-        # guesses.append(guess)
+        if frequency > 1:
+
+            print("byeeeeee")
+        else:
+            board_squares.pop(index*2)
+            board_squares.insert((index*2), guess)
+            # print(frequency)
+            print("Nice! You found a letter.")
+            # print(board)
+            print("" .join(board_squares))
+            guess = input("Guess a letter :) ")
+            compare_letter(guess)
     else:
         print("Oops! Try a different letter.")
         wrong_guesses += 1
