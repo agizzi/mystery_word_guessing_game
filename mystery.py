@@ -14,27 +14,20 @@ def end_game():
 
     def compare_letter(word, board, guess):
         start = 0
-        if len(letter_guesses) >= 8:
-            game_over = True
-            print(
-                "Well, this is awkward... You lost! Press the up arrow and hit enter to play again.")
-            print(game_over)
-            return
+        if word.find(guess, start) == -1:
+            letter_guesses.append(guess)
+            print("Oops, try another letter or word.")
+            print("Incorrect guesses:", ", ".join(letter_guesses))
+            print("You have", 8-len(letter_guesses), "guesses remaining.")
+            # print(game_over)
         else:
-            if word.find(guess, start) == -1:
-                letter_guesses.append(guess)
-                print("Oops, try another letter or word.")
+            while word.find(guess, start) != -1:
+                index = word.index(guess, start)
+                start = index + 1
+                board[index] = guess
                 print("Incorrect guesses:", ", ".join(letter_guesses))
-                print("You have", 8-len(letter_guesses), "guesses remaining.")
-                # print(game_over)
-            else:
-                while word.find(guess, start) != -1:
-                    index = word.index(guess, start)
-                    start = index + 1
-                    board[index] = guess
-                    print("Incorrect guesses:", ", ".join(letter_guesses))
-                    print("You have", 8-len(letter_guesses), "remaining.")
-                    return board
+                print("You have", 8-len(letter_guesses), "remaining.")
+            return board
 
     def compare_word(word, board, guess):
         if guess == answer:
