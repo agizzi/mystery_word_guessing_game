@@ -1,49 +1,62 @@
 import random
 
-with open("words.txt") as words_list:
-    words = words_list.read().split()
-    # print(type(words))
-    # print(words)
-answer = random.choice(words)
-answer_letters = list(answer)
-print(answer)
-# print(type(answer))
-# print(answer_letters)
-# print(type(answer_letters))
-print("This word has", len(answer), "letters!")
-
-board = ('_ ' * len(answer))
-board_squares = list(board)
-print(board)
 letter_guesses = []
 
-# print(letter_and_index)
-# print(type(board_squares))
 
-
-def compare_letter(guess):
-    frequency = answer_letters.count(guess)
-    wrong_guesses = 0
-    index = answer_letters.index(guess)
-    # print(index)
-    if guess in answer_letters:
-        if frequency > 1:
-            # board_squares.pop(letter_and_index[letter: value]
-            print("byeeeeee")
-        else:
-            board_squares.pop(index*2)
-            board_squares.insert((index*2), guess)
-            # print(frequency)
-            print("Nice! You found a letter.")
-            # print(board)
-            print("" .join(board_squares))
-            guess = input("Guess a letter :) ")
-            compare_letter(guess)
+def compare_letter(word, board, guess):
+    start = 0
+    if len(letter_guesses) >= 8:
+        game_over = True
+        print(
+            "Well, this is awkward. You lost! Press the up arrow and hit enter to play again.")
+        print(game_over)
+        return
     else:
-        print("Oops! Try a different letter.")
-        wrong_guesses += 1
-        print("You have", 8 - wrong_guesses, "guesses remaining!")
+        if word.find(guess, start) == -1:
+            letter_guesses.append(guess)
+            print("Oops, try another letter or word.")
+            print("Incorrect guesses:", ", ".join(letter_guesses))
+            print("You have", 8-len(letter_guesses), "remaining.")
+            # print(game_over)
+        else:
+            while word.find(guess, start) != -1:
+                index = word.index(guess, start)
+                start = index + 1
+                board[index] = guess
+            return board
 
 
-guess = input("Guess a letter :) ")
-compare_letter(guess)
+def compare_word(word, board, guess):
+    if guess == answer:
+        print("Wow! You win! Press the up arrow and hit enter to play again. :) ")
+        board = guess
+        game_over == True
+        return
+    else:
+        print("Oops, that's not a valid guess. :/ Try again. ")
+        guess = input("Guess a letter or word :)  ")
+
+
+def end_game():
+    with open("words.txt") as words_list:
+        words = words_list.read().split()
+    answer = random.choice(words).lower()
+    print(answer)
+    print("This word has", len(answer), "letters!")
+    board = ['_'] * len(answer)
+    game_over = False
+    print(" ".join(board))
+    while game_over == False:
+        guess = input("Guess a letter or word :)  ")
+        if len(guess) == 1 and guess.isalpha():
+            compare_letter(answer, board, guess)
+            print(" ".join(board))
+            # guess = input("Guess a letter or word :)  ")
+        elif len(guess) == len(answer) and guess.isalpha():
+            compare_word(answer, board, guess)
+        else:
+            print("Oops, that's not a valid guess. :/ Try again. ")
+            # guess = input("Guess a letter or word :)  ")
+
+
+end_game()
