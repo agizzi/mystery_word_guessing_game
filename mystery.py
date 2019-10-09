@@ -16,6 +16,12 @@ board = ('_ ' * len(answer))
 board_squares = list(board)
 print(board)
 letter_guesses = []
+letter_and_index = []
+i = 0
+for letter in answer_letters:
+    letter_and_index.append({letter: i})
+    i = i + 1
+print(letter_and_index)
 # print(type(board_squares))
 
 
@@ -26,7 +32,7 @@ def compare_letter(guess):
     # print(index)
     if guess in answer_letters:
         if frequency > 1:
-
+            # board_squares.pop(letter_and_index[letter: value]
             print("byeeeeee")
         else:
             board_squares.pop(index*2)
