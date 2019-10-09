@@ -16,12 +16,8 @@ board = ('_ ' * len(answer))
 board_squares = list(board)
 print(board)
 letter_guesses = []
-letter_and_index = []
-i = 0
-for letter in answer_letters:
-    letter_and_index.append({letter: i})
-    i = i + 1
-print(letter_and_index)
+
+# print(letter_and_index)
 # print(type(board_squares))
 
 
