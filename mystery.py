@@ -5,8 +5,34 @@ letter_guesses = []
 def end_game():
     with open("words.txt") as words_list:
         words = words_list.read().split()
-    answer = random.choice(words).lower()
-    print(answer)
+    easy_words = []
+    medium_words = []
+    hard_words = []
+    expert_words = []
+    for word in words:
+        if len(word) == 4 or len(word) == 5:
+            easy_words.append(word)
+        elif len(word) == 6 or len(word) == 7:
+            medium_words.append(word)
+        elif len(word) == 7 or len(word) == 8:
+            hard_words.append(word)
+        elif len(word) > 8:
+            expert_words.append(word)
+    # print(easy_words)
+    # print(medium_words)
+    # print(hard_words)
+    # print(expert_words)
+    level = input(
+        "Choose your level: easy, medium, hard, or expert => ")
+    if level == "easy":
+        answer = random.choice(easy_words).lower()
+    elif level == "medium":
+        answer = random.choice(medium_words).lower()
+    elif level == "hard":
+        answer = random.choice(hard_words).lower()
+    elif level == "expert":
+        answer = random.choice(expert_words).lower()
+    # answer = random.choice(words).lower()    print(answer)
     print("This word has", len(answer), "letters!")
     board = ['_'] * len(answer)
     game_over = False
@@ -31,6 +57,7 @@ def end_game():
         else:
             if len(letter_guesses) >= 8:
                 print("GAME OVER LOSERRRR")
+                print("The word was", answer)
                 return
             else:
                 print("Incorrect guesses:", ", ".join(letter_guesses))
