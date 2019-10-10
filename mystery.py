@@ -1,3 +1,4 @@
+
 import random
 letter_guesses = []
 
@@ -18,10 +19,8 @@ def end_game():
             hard_words.append(word)
         elif len(word) > 8:
             expert_words.append(word)
-    # print(easy_words)
-    # print(medium_words)
-    # print(hard_words)
-    # print(expert_words)
+    print(
+        "Welcome to the cutest little guessing game. To exit, press [ctrl + d]. Good luck! :)")
     level = input(
         "Choose your level: easy, medium, hard, or expert => ")
     if level == "easy":
@@ -32,7 +31,8 @@ def end_game():
         answer = random.choice(hard_words).lower()
     elif level == "expert":
         answer = random.choice(expert_words).lower()
-    # answer = random.choice(words).lower()    print(answer)
+    # answer = random.choice(words).lower()
+    print(answer)
     print("This word has", len(answer), "letters!")
     board = ['_'] * len(answer)
     game_over = False
@@ -53,11 +53,13 @@ def end_game():
     while (game_over == False):
         if answer == ("".join(board)):
             print("YOU WIN MOFO")
+            print("Press up and enter to play again.")
             return
         else:
             if len(letter_guesses) >= 8:
                 print("GAME OVER LOSERRRR")
                 print("The word was", answer)
+                print("Press up and enter to play again.")
                 return
             else:
                 print("Incorrect guesses:", ", ".join(letter_guesses))
