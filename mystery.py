@@ -24,21 +24,8 @@ def end_game():
                 board[index] = guess
             return board
 
-    def compare_word(word, board, guess):
-        board2 = []
-        if guess == answer:
-            # print("Wow! You win! Press the up arrow and hit enter to play again. :) ")
-            for letter in guess:
-                board2.append(letter)
-            board = board2
-            print("".join(board))
-            return board
-        else:
-            print("Oops, that's not a valid guess. :/ Try again. ")
-            guess = input("Guess a letter or word :)  ")
-
     while (game_over == False):
-        if "".join(board) == answer:
+        if answer == ("".join(board)):
             print("YOU WIN MOFO")
             return
         else:
@@ -46,18 +33,28 @@ def end_game():
                 print("GAME OVER LOSERRRR")
                 return
             else:
-                guess = input("Guess a letter or word :)  ")
                 print("Incorrect guesses:", ", ".join(letter_guesses))
                 print("You have", 8-len(letter_guesses), "guesses remaining.")
+                guess = input("Guess a letter or word :)  ")
                 if len(guess) == 1 and guess.isalpha():
                     compare_letter(answer, board, guess)
                     print(" ".join(board))
-                    # guess = input("Guess a letter or word :)  ")
                 elif len(guess) == len(answer) and guess.isalpha():
-                    compare_word(answer, board, guess)
+                    board2 = []
+                    if guess == answer:
+                        print(
+                            "Wow! You win! Press the up arrow and hit enter to play again. :) ")
+                        for letter in guess:
+                            board2.append(letter)
+                            board = board2
+                            return board
+                    else:
+                        letter_guesses.append(guess)
+                        print(" ".join(board))
                 else:
                     print("Oops, that's not a valid guess. :/ Try again. ")
-                    # guess = input("Guess a letter or word :)  ")
+                    print(" ".join(board))
+                    guess = input("Guess a letter or word :)  ")
 
 
 end_game()
