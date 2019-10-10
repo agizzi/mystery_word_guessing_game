@@ -17,24 +17,22 @@ def end_game():
         if word.find(guess, start) == -1:
             letter_guesses.append(guess)
             print("Oops, try another letter or word.")
-            print("Incorrect guesses:", ", ".join(letter_guesses))
-            print("You have", 8-len(letter_guesses), "guesses remaining.")
-            # print(game_over)
         else:
             while word.find(guess, start) != -1:
                 index = word.index(guess, start)
                 start = index + 1
                 board[index] = guess
-                print("Incorrect guesses:", ", ".join(letter_guesses))
-                print("You have", 8-len(letter_guesses), "remaining.")
             return board
 
     def compare_word(word, board, guess):
+        board2 = []
         if guess == answer:
-            print("Wow! You win! Press the up arrow and hit enter to play again. :) ")
-            board = guess
-            game_over == True
-            return
+            # print("Wow! You win! Press the up arrow and hit enter to play again. :) ")
+            for letter in guess:
+                board2.append(letter)
+                board = board2
+            print("".join(board))
+            return board
         else:
             print("Oops, that's not a valid guess. :/ Try again. ")
             guess = input("Guess a letter or word :)  ")
@@ -43,8 +41,13 @@ def end_game():
         if len(letter_guesses) >= 8:
             print("GAME OVER LOSERRRR")
             return
+        elif "".join(board) == answer:
+            print("YOU WIN MOFO")
+            return
         else:
             guess = input("Guess a letter or word FUCKKKKK:)  ")
+            print("Incorrect guesses:", ", ".join(letter_guesses))
+            print("You have", 8-len(letter_guesses), "guesses remaining.")
             if len(guess) == 1 and guess.isalpha():
                 compare_letter(answer, board, guess)
                 print(" ".join(board))
