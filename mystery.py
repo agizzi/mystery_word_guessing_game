@@ -31,6 +31,8 @@ def end_game():
         answer = random.choice(hard_words).lower()
     elif level == "expert":
         answer = random.choice(expert_words).lower()
+    elif level != "easy" or level != "medium" or level != "hard":
+        end_game()
     # answer = random.choice(words).lower()
     print(answer)
     print("This word has", len(answer), "letters!")
