@@ -33,8 +33,8 @@ def end_game():
         answer = random.choice(expert_words).lower()
     elif level != "easy" or level != "medium" or level != "hard":
         end_game()
-    # answer = random.choice(words).lower()
-    print(answer)
+    
+    # print(answer)
     print("This word has", len(answer), "letters!")
     board = ['_'] * len(answer)
     game_over = False
@@ -54,12 +54,12 @@ def end_game():
 
     while (game_over == False):
         if answer == ("".join(board)):
-            print("YOU WIN MOFO")
+            print("YOU WIN!")
             print("Press up and enter to play again.")
             return
         else:
             if len(letter_guesses) >= 8:
-                print("GAME OVER LOSERRRR")
+                print("GAME OVER ):")
                 print("The word was", answer)
                 print("Press up and enter to play again.")
                 return
